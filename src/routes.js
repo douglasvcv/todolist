@@ -48,8 +48,15 @@ export const routes = [
             }
             
             return res.writeHead(204).end()
-        }
-    }
+        },
+    },
 
 
 ]
+
+export function buildRoute(path){
+    const routeParams = /:([a-zA-Z]+)/g
+    const params = path.replaceAll(routeParams, '(?<$1>[a-z0-9\-_]+)')
+
+    return new RegExp(`^${params}(?<query>\\?(.*))?$`)
+}
