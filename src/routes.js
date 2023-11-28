@@ -21,6 +21,34 @@ export const routes = [
                 ...req.body
             })
         }
+    },
+    {
+        method: "PUT",
+        path: buildRoute("/todos/:id"),
+        handler: (req, res)=>{
+            const {id} = req.params
+            const index = todos.findIndex((row) => row.id === id)
+            
+            if(index>-1){
+                todos[index] = {id, ...req.body}
+            }
+            return res.writeHead(204).end()
+        },
+    },
+    {
+        method: "DELETE",
+        path: "/todos/:id",
+        handler: (req, res)=>{
+            const {id} = req.params
+
+            const index = todos.findIndex(row => row.id === id)
+            
+            if(id > -1){
+                todos.slice(index, 1)
+            }
+            
+            return res.writeHead(204).end()
+        }
     }
 
 
